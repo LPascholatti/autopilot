@@ -2,21 +2,24 @@ import tkinter as tk
 import threading
 from utils import prevent_sleep, move_mouse
 
-# Global variable for thread control
-running = False
+# Global event object for thread control
+stop_event = threading.Event()
 
 def start_script():
-    global running
-    running = True
+    stop_event.clear()  # Clear the event to allow the thread to run
     prevent_sleep()
     status_label.config(bg="green")
-    threading.Thread(target=move_mouse, args=(running,)).start()
+    # Start a new thread to run the move_mouse function
+    threading.Thread(target=move_mouse, args=(stop_event,)).start()
 
 def stop_script():
-    global running
-    running = False
+    stop_event.set()  # Set the event to stop the thread
     status_label.config(bg="red")
     print("Script paused")
+
+def on_closing():
+    stop_script()  # Ensure stopping the script when closing the app
+    root.destroy()  # Destroy the Tkinter window
 
 # Functions to make the window draggable
 def start_move(event):
@@ -25,6 +28,7 @@ def start_move(event):
     y = event.y
 
 def stop_move(event):
+    global x, y
     x = None
     y = None
 
@@ -49,8 +53,14 @@ start_button.pack(pady=10)
 pause_button = tk.Button(root, text="Pause", command=stop_script)
 pause_button.pack(pady=10)
 
+info_label = tk.Label(root, text="Created by LPascholatti\nGitHub: https://github.com/LPascholatti/autopilot", font=("Arial", 10))
+info_label.pack(pady=10)
+
 # Status label to indicate running state
 status_label = tk.Label(root, text="Status", bg="red", width=10)
 status_label.pack(pady=10)
+
+# Ensure that the script stops when the Tkinter window is closed
+root.protocol("WM_DELETE_WINDOW", on_closing)
 
 root.mainloop()
