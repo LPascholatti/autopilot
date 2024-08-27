@@ -40,7 +40,7 @@ def do_move(event):
 
 # Tkinter GUI
 root = tk.Tk()
-root.title("Auto Mouse Mover")
+root.title("Autopilot")
 
 # Bind mouse events to make the window draggable
 root.bind("<Button-1>", start_move)
