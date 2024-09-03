@@ -10,8 +10,8 @@ def prevent_sleep():
     subprocess.Popen(["caffeinate"])
 
 
-def move_mouse():
-    while True:
+def move_mouse(stop_event):
+    while not stop_event.is_set():
         print("Running...")
         pyautogui.moveRel(random.randint(5, 30), random.randint(5, 15))
         print("Moved")
@@ -20,9 +20,15 @@ def move_mouse():
         print("Moved")
         time.sleep(random.randint(5, 15))
 
-        print("Pressing Command + Tab")
-        pyautogui.hotkey("command", "tab")
+        if stop_event.is_set():  # Check periodically
+            break
+
+        print("Pressing Alt + Tab")
+        pyautogui.hotkey("alt", "tab")
         time.sleep(random.randint(5, 10))
+
+        if stop_event.is_set():  # Check periodically
+            break
 
         pyautogui.moveRel(random.randint(10, 30), random.randint(5, 15))
         time.sleep(random.randint(1, 5))
@@ -33,7 +39,4 @@ def move_mouse():
         pyautogui.moveRel(random.randint(-25, -5), random.randint(-15, -5))
         print("Moved")
 
-
-if __name__ == "__main__":
-    prevent_sleep()
-    move_mouse()
+    print("Thread exiting...")
