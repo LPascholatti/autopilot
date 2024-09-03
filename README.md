@@ -16,7 +16,7 @@ Suggested: start a new virtual env in the main directory after cloning this repo
 
 Install all required modules using `requirements.txt`.
 
-Run with python via `main.py`.
+Run with python via `main.py`/ `main_mac.py`.
 
 Or, you can generate a windows distro by running pyinstaller.
 
