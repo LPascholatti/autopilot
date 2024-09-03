@@ -23,8 +23,8 @@ def move_mouse(stop_event):
         if stop_event.is_set():  # Check periodically
             break
 
-        print("Pressing Alt + Tab")
-        pyautogui.hotkey("alt", "tab")
+        print("Pressing Command + Tab")
+        pyautogui.hotkey("command", "tab")
         time.sleep(random.randint(5, 10))
 
         if stop_event.is_set():  # Check periodically
