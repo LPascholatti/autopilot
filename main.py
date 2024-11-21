@@ -53,12 +53,19 @@ start_button.pack(pady=10)
 pause_button = tk.Button(root, text="Pause", command=stop_script)
 pause_button.pack(pady=10)
 
-info_label = tk.Label(root, text="Created by LPascholatti\nGitHub: https://github.com/LPascholatti/autopilot", font=("Arial", 10))
+info_label = tk.Label(root, text="   Created by LPascholatti\nGitHub: https://github.com/LPascholatti/autopilot   ", font=("Arial", 10))
 info_label.pack(pady=10)
+
+keybindings = tk.Label(root, text="Control + S: Start\nControl + P: Pause\nControl + Q: Quit", font=("Arial", 10))
+keybindings.pack(pady=10)
 
 # Status label to indicate running state
 status_label = tk.Label(root, text="Status", bg="red", width=10)
 status_label.pack(pady=10)
+
+root.bind('<Control-s>', lambda event: start_script())
+root.bind('<Control-p>', lambda event: stop_script())
+root.bind('<Control-q>', lambda event: on_closing())
 
 # Ensure that the script stops when the Tkinter window is closed
 root.protocol("WM_DELETE_WINDOW", on_closing)
