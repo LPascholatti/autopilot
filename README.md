@@ -22,8 +22,8 @@ Or, you can generate a windows distro by running pyinstaller.
 
 21/11/2024: Added keybindings
 
-Control + S: Start
-Control + P: Pause
-Control + Q: Quit
+- Control + S: Start
+- Control + P: Pause
+- Control + Q: Quit
 
 By LPascholatti https://github.com/LPascholatti/autopilot
